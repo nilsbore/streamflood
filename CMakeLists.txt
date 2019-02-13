@@ -35,6 +35,7 @@ target_include_directories(streamflood PUBLIC
 
 target_link_libraries(streamflood -lncursesw)
 
+add_subdirectory(example)
 #add_executable(test_monitor src/test.cpp external/libfort/lib/fort.c)
 
 #target_link_libraries(test_monitor termcolor yaml-cpp ${catkin_LIBRARIES} ${CURSES_LIBRARIES})
