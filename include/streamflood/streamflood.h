@@ -33,7 +33,7 @@ private:
     uint8_t current_display_group;
 
     void recompute_layout();
-    bool render(bool resized=false);
+    void render(bool resized=false);
     void render_status_bar();
 
 public:

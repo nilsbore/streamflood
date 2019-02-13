@@ -194,15 +194,16 @@ bool Streams::spin()
     return c != 27 && c != 'q' && c != KEY_F(1);
 }
 
-bool Streams::render(bool resized)
+void Streams::render(bool resized)
 {
     //printf("%d rows, %d columns\n", size.ws_row, size.ws_col);
     if (resized) {
         endwin();
         // Needs to be called after an endwin() so ncurses will initialize
         // itself with the new terminal dimensions.
-        refresh();
         clear();
+        refresh();
+
         mvwin(status_bar, screen_height-1, 0);
         wresize(status_bar, 1, screen_width);
     }
