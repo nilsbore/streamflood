@@ -220,6 +220,7 @@ void Streams::render(bool resized)
         else {
             wbkgd(w.second.window, COLOR_PAIR(6));
             wrefresh(w.second.window);
+            mvwin(w.second.window, w.second.y0, w.second.x0);
             wresize(w.second.window, w.second.height, w.second.width);
             mvwin(w.second.window, w.second.y0, w.second.x0);
         }
