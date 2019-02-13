@@ -68,9 +68,9 @@ public:
             Window& w = server.windows.at(stream_name);
             w.window_string = ss.str();
             if (w.display_group == server.current_display_group) {
-                server.render_status_bar();
+                //server.render_status_bar();
                 mvwaddstr(w.window, 0, 0, w.window_string.c_str());
-                wrefresh(server.status_bar);
+                //wrefresh(server.status_bar);
                 wrefresh(w.window);
             }
             return *this;

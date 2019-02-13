@@ -204,8 +204,8 @@ void Streams::render(bool resized)
         clear();
         refresh();
 
-        mvwin(status_bar, screen_height-1, 0);
         wresize(status_bar, 1, screen_width);
+        mvwin(status_bar, screen_height-1, 0);
     }
 
     if (current_display_group >= number_display_groups) {
@@ -220,8 +220,8 @@ void Streams::render(bool resized)
         else {
             wbkgd(w.second.window, COLOR_PAIR(6));
             wrefresh(w.second.window);
-            mvwin(w.second.window, w.second.y0, w.second.x0);
             wresize(w.second.window, w.second.height, w.second.width);
+            mvwin(w.second.window, w.second.y0, w.second.x0);
         }
 
         if (w.second.display_group == current_display_group) {
