@@ -19,6 +19,7 @@ private:
         size_t x0;
         size_t height;
         size_t width;
+        bool relative_size;
         uint8_t display_group;
         std::string window_string;
         WINDOW* window;
@@ -35,6 +36,7 @@ private:
     void recompute_layout();
     void render(bool resized=false);
     void render_status_bar();
+    std::pair<size_t, size_t> get_relative_shape(const Window& w);
 
 public:
 
@@ -46,6 +48,7 @@ public:
     static std::pair<size_t, size_t> compute_string_shape(const std::string& window_string);
 
     void add_stream(const std::string& stream_name, int height, int width); // add one of these with double values relative to window
+    void add_stream(const std::string& stream_name, double relative_height, double relative_width);
 
     void resize_stream(const std::string& stream_name, int height, int width); // add one of these with double values relative to window
 

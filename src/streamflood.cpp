@@ -91,7 +91,14 @@ void Streams::recompute_layout()
             }*/
             for (int i = start_ind; i < to_be_placed.size(); ++i) {
                 const Window& w = windows[to_be_placed[i]];
-                bins.emplace_back(-1, w.width, w.height);
+                if (w.relative_size) {
+                    size_t height, width;
+                    tie(height, width) = get_relative_shape(w);
+                    bins.emplace_back(-1, width, height);
+                }
+                else {
+                    bins.emplace_back(-1, w.width, w.height);
+                }
             }
 
             // `pack()` returns a vector of Bin* pointers, with `x`, `y`, `w`, `h` values..
@@ -194,6 +201,13 @@ bool Streams::spin()
     return c != 27 && c != 'q' && c != KEY_F(1);
 }
 
+pair<size_t, size_t> Streams::get_relative_shape(const Window& w)
+{
+    size_t width = size_t(screen_width*double(w.width)/100.);
+    size_t height = size_t((screen_height-1)*double(w.height)/100.);
+    return make_pair(height, width);
+}
+
 void Streams::render(bool resized)
 {
     //printf("%d rows, %d columns\n", size.ws_row, size.ws_col);
@@ -215,13 +229,27 @@ void Streams::render(bool resized)
     int counter = 0;
     for (pair<const string, Window>& w : windows) {
         if (w.second.window == NULL) {
-            w.second.window = newwin(w.second.height, w.second.width, w.second.y0, w.second.x0);
+            if (w.second.relative_size) {
+                size_t height, width;
+                tie(height, width) = get_relative_shape(w.second);
+                w.second.window = newwin(height, width, w.second.y0, w.second.x0);
+            }
+            else {
+                w.second.window = newwin(w.second.height, w.second.width, w.second.y0, w.second.x0);
+            }
         }
         else {
             wbkgd(w.second.window, COLOR_PAIR(6));
             wrefresh(w.second.window);
             mvwin(w.second.window, w.second.y0, w.second.x0);
-            wresize(w.second.window, w.second.height, w.second.width);
+            if (w.second.relative_size) {
+                size_t height, width;
+                tie(height, width) = get_relative_shape(w.second);
+                wresize(w.second.window, height, width);
+            }
+            else {
+                wresize(w.second.window, w.second.height, w.second.width);
+            }
             mvwin(w.second.window, w.second.y0, w.second.x0);
         }
 
@@ -267,6 +295,25 @@ void Streams::add_stream(const string& stream_name, int height, int width)
     w.window_string = "";
     w.height = height;
     w.width = width;
+    w.relative_size = false;
+    w.window = NULL;
+    windows[stream_name] = w;
+
+    recompute_layout();
+    render();
+}
+
+void Streams::add_stream(const std::string& stream_name, double relative_height, double relative_width)
+{
+    if (windows.count(stream_name) != 0) {
+        return;
+    }
+
+    Window w;
+    w.window_string = "";
+    w.height = int(100.*relative_height);
+    w.width = int(100.*relative_width);
+    w.relative_size = true;
     w.window = NULL;
     windows[stream_name] = w;
 

@@ -12,8 +12,8 @@ using namespace std;
 int main(int argc, char** argv)
 {
     streamflood::Streams streams;
-    streams.add_stream("Clock 1", 20, 50);
-    streams.add_stream("Clock 2", 20, 50);
+    streams.add_stream("Clock 1", 0.5, 0.5);
+    streams.add_stream("Clock 2", 0.5, 0.5);
     streams.add_stream("Clock 3", 20, 50);
     streams.add_stream("Clock 4", 20, 50);
 
