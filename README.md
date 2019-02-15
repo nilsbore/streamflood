@@ -2,6 +2,11 @@
 
 Multi virtual terminal streams library for c++
 
+## Dependencies
+
+This library needs ncurses with wide-character support. On Ubuntu 16.04, install
+libncursesw using `sudo apt-get install libncursesw5-dev`.
+
 ## Building
 
 ```
