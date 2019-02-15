@@ -10,11 +10,15 @@ you choose to output text streams to any of these panes. The library takes care 
 layouting them in a way that the pane will fit on your screen.
 
 In this example, there are four panes, of which three fits in one window:
+
 ![Smaller pane 1](https://github.com/nilsbore/streamflood/blob/master/docs/pane_1.png)
+
 By pressing "0", you go the corresponding window, containing the last pane:
+
 ![Smaller pane 0](https://github.com/nilsbore/streamflood/blob/master/docs/pane_0.png)
 
 By resizing the window to be bigger, it can display all panes at the same time:
+
 ![Larger pane with all](https://github.com/nilsbore/streamflood/blob/master/docs/pane_all.png)
 
 ## Library usage
