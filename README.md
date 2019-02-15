@@ -2,6 +2,12 @@
 
 Multi virtual terminal streams library for c++
 
+## Building
+
+```
+mkdir build && cd build && cmake .. && make -j4
+```
+
 ## Functionality
 
 Streamflood allows you to have multiple panes within the terminal running your program.
